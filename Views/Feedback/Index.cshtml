@@ -1,0 +1,88 @@
+﻿@model FeedbackManagement.Models.Feedback
+
+<h2>Feedback Management</h2>
+
+<partial name="_FeedbackHeader" />
+
+<form asp-action="Index" method="post">
+
+    <p>
+        @Html.LabelFor(model => model.Name)
+        <br />
+        @Html.TextBoxFor(model => model.Name)
+        <br />
+        @Html.ValidationMessageFor(model => model.Name)
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Id)
+        <br />
+        @Html.TextBoxFor(model => model.Id)
+        <br />
+        @Html.ValidationMessageFor(model => model.Id)
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Branch)
+        <br />
+
+        @Html.DropDownListFor(
+            model => model.Branch,
+            new SelectList(new[]
+            {
+                "Computer Engineering",
+                "Information Technology",
+                "CSE",
+                "Other"
+            }),
+            "Select Branch"
+        )
+
+        <br />
+        @Html.ValidationMessageFor(model => model.Branch)
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Date)
+        <br />
+
+        @Html.TextBoxFor(
+            model => model.Date,
+            "{0:dd-MM-yyyy}",
+            new { @readonly = "readonly" }
+        )
+    </p>
+
+    <p>
+        @Html.LabelFor(model => model.Review)
+        <br />
+
+        @Html.TextAreaFor(
+            model => model.Review,
+            new { rows = "5", cols = "40" }
+        )
+
+        <br />
+        @Html.ValidationMessageFor(model => model.Review)
+    </p>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+@if (ViewBag.Submitted == true)
+{
+    <hr />
+
+    <h3>Submitted Review</h3>
+
+    <p><strong>Name:</strong> @Model.Name</p>
+
+    <p><strong>ID:</strong> @Model.Id</p>
+
+    <p><strong>Branch:</strong> @Model.Branch</p>
+
+    <p><strong>Date:</strong> @Model.Date.ToString("dd-MM-yyyy")</p>
+
+    <p><strong>Review:</strong> @Model.Review</p>
+}
